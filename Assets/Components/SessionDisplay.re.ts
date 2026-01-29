@@ -51,9 +51,9 @@ export default class SessionDisplay extends RE.Component {
     if (timeLeft !== this.currentTimeLeft) {
       this.currentTimeLeft = timeLeft;
 
-      const minutes = Math.floor(timeLeft / 60).toString();
+      const minutes = Math.floor(timeLeft / 60);
       const seconds = (timeLeft - (minutes * 60)).toString();
-      this.timeLeftText.text = `${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
+      this.timeLeftText.text = `${minutes.toString().padStart(2, '0')}:${seconds.padStart(2, '0')}`;
       this.timeLeftText.needsUpdate = true;
     }
 

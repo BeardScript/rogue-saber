@@ -22,7 +22,7 @@ export default class Text extends RE.Component {
   public text: string = 'Hello World';
 
   public needsUpdate: boolean = true;
-  public textObject: Object3D;
+  public textObject: TroikaText;
 
   awake() {
     this.textObject = new TroikaText();

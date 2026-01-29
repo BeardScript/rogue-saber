@@ -128,7 +128,7 @@ export default class RemoteFire extends RE.Component {
     const laser = this.laserPrefab.instantiate();
     this.object3d.getWorldPosition(laser.position);
 
-    Runtime.renderer.xr.getCamera(Runtime.camera).getWorldPosition(vector);
+    Runtime.renderer.xr.getCamera().getWorldPosition(vector);
 
     vector.x += -.05 + (Math.random() * .1);
     vector.y += -.05 + (Math.random() * .1);

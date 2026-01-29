@@ -1,4 +1,5 @@
 import * as RE from 'rogue-engine';
+import * as THREE from 'three';
 import { degToRad } from 'three/src/math/MathUtils';
 import { Prop, Runtime } from 'rogue-engine';
 import { Camera, Vector3 } from 'three';

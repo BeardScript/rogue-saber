@@ -32,7 +32,7 @@ export default class FaceShield extends RE.Component {
       }
 
       hand.getWorldPosition(from);
-      Runtime.renderer.xr.getCamera(Runtime.camera).getWorldPosition(to);
+      Runtime.renderer.xr.getCamera().getWorldPosition(to);
       const distance = from.distanceTo(to);
 
       if (this.toggled) {

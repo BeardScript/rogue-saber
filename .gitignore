@@ -1,3 +1,9 @@
-dist
-node_modules
-Build
+.DS_Store
+node_modules/
+build/
+dist/
+BUILD/
+rogue_builds/
+package-lock.json
+mcp.json
+Chats/

@@ -1,8 +1,7 @@
 # rogue-saber
-Learning Rogue Engine with lightsabers
 
-* This project is for trying out rogueengine.io
-* Building a lightsaber game to deflect lasers are my general go-to when it comes to experimenting with a new 3D engine.
+This is a fork of the original Rogue Saber by Ruben Van Der Leun.
+
 * Only tested on the Oculus Quest/
 * The VirtualReality components need some more work. The controller component only seems to work for the left controller at the moment on the Quest.
 * Noteworthy components

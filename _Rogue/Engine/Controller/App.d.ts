@@ -1,5 +1,5 @@
 import { Scene, Object3D } from 'three';
-import SceneController from '../Model/SceneController';
+import type SceneController from '../Model/SceneController';
 export declare class App {
     private static _title;
     private static _settings;
@@ -23,8 +23,13 @@ export declare class App {
     static get sceneController(): SceneController;
     static set sceneController(value: SceneController);
     static get lanIP(): string;
-    static toJSON(assetPaths: {
-        [uuid: string]: string;
+    static toJSON(options?: {
+        assetPaths: {
+            [uuid: string]: string;
+        };
+        namedPrefabUUIDs: {
+            [name: string]: string;
+        };
     }): {
         title: string;
         scenes: {
@@ -35,17 +40,27 @@ export declare class App {
         assetPaths: {
             [uuid: string]: string;
         };
+        namedPrefabUUIDs: {
+            [name: string]: string;
+        };
+        tags: any;
+        inputConfig: any;
     };
-    static fromJSON(json: {
+    static fromJSON(config: {
         title: string;
         scenes: {
             name: string;
             uuid: string;
         }[];
-        assetPaths: {
+        assetPaths?: {
             [uuid: string]: string;
         };
         lanIP?: string;
+        tags?: string[];
+        inputConfig?: any;
+        namedPrefabUUIDs?: {
+            [name: string]: string;
+        };
     }): void;
     static play(config: {
         title: string;
@@ -56,10 +71,15 @@ export declare class App {
         assetPaths: {
             [uuid: string]: string;
         };
+        namedPrefabUUIDs: {
+            [name: string]: string;
+        };
+        tags?: string[];
+        inputConfig?: any;
     }): void;
     static loadScene(name: string | number): Promise<void>;
     private static loadSceneFunc;
-    static clone(object: Object3D, parent?: Object3D): Object3D<import("three").Event>;
+    static clone(object: Object3D, parent?: Object3D): Object3D<import("three").Object3DEventMap>;
     private static loadComponentsRecursive;
     private static loadAudioListeners;
 }

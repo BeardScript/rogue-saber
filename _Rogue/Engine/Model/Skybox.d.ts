@@ -1,4 +1,5 @@
-import { Mesh, Texture } from "three";
+import { Mesh, Texture, CubeTexture } from "three";
+import { Sky } from 'three/examples/jsm/objects/Sky';
 declare class SkyboxClass {
     private _enabled;
     private _mode;
@@ -24,11 +25,11 @@ declare class SkyboxClass {
     sunSpeed: number;
     get layers(): number;
     set layers(layers: number);
-    get sky(): any;
-    get cubemapSky(): Mesh<import("three").BufferGeometry, import("three").Material | import("three").Material[]>;
+    get sky(): Sky;
+    get cubemapSky(): Mesh<import("three").BufferGeometry<import("three").NormalBufferAttributes, import("three").BufferGeometryEventMap>, import("three").Material | import("three").Material[], import("three").Object3DEventMap>;
     get enabled(): boolean;
     set enabled(value: boolean);
-    get mode(): 'procedural' | 'cubemap' | '360';
+    get mode(): "procedural" | "cubemap" | "360";
     set mode(value: 'procedural' | 'cubemap' | '360');
     get cubemapTop(): Texture;
     set cubemapTop(value: Texture);
@@ -58,17 +59,20 @@ declare class SkyboxClass {
     set azimuth(value: number);
     get showSun(): boolean;
     set showSun(value: boolean);
-    init(json?: SkyboxSerialization): void;
+    init(json?: SkyboxSerialization | SkyboxClass): void;
     private initProceduralSkybox;
+    private placeholderTexture;
+    cubeTexture: CubeTexture<unknown>;
     private initCubemapSkybox;
+    private setCubemapImages;
     toJSON(): SkyboxSerialization;
-    fromJSON(json: SkyboxSerialization): void;
+    fromJSON(json: SkyboxSerialization | SkyboxClass): void;
     private initWithDefaultValues;
     private getDefaultJSON;
     private setSunPosition;
 }
 export declare let Skybox: SkyboxClass;
-export declare type SkyboxSerialization = {
+export type SkyboxSerialization = {
     _enabled: boolean;
     _mode: 'procedural' | 'cubemap' | '360';
     layers: number;

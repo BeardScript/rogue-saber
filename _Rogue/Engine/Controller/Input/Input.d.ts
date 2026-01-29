@@ -1,11 +1,121 @@
 import { Mouse } from './Mouse';
 import { Keyboard } from './Keyboard';
 import { TouchController } from './Touch';
+import { GamepadController } from './GamepadController';
+type GamepadAxesObj = {
+    x?: number;
+    y?: number;
+    mult?: [x: number, y: number];
+};
+type GamepadAxesArray = [up?: number, down?: number, left?: number, right?: number, mult?: [xMult: number, yMult: number]];
+type TouchAxesObj = {
+    area: "left" | "right" | "view";
+    mult?: [x: number, y: number];
+    normalize?: [radiusX: number, radiusY: number];
+};
+type TouchAxesArray = [up?: number, down?: number, left?: number, right?: number, mult?: [xMult: number, yMult: number]];
+type GamepadAxes = GamepadAxesObj | GamepadAxesArray;
+type KeyboardAxes = [up?: string, down?: string, left?: string, right?: string, mult?: [xMult: number, yMult: number]];
+type MouseAxes = [xMult: number, yMult: number];
+type TouchAxes = TouchAxesObj | TouchAxesArray;
+export type InputAxesBinds = {
+    type: "Axes";
+    Keyboard?: KeyboardAxes;
+    Mouse?: MouseAxes;
+    Gamepad?: GamepadAxes;
+    Touch?: TouchAxes;
+};
+export type InputBinds = {
+    type: "Button";
+    Keyboard?: string;
+    Mouse?: number | "WheelUp" | "WheelDown";
+    Gamepad?: number;
+    Touch?: number | "Tap";
+};
+export type InputAction = {
+    [name: string]: InputAxesBinds | InputBinds;
+};
+type GamepadMapping = {
+    [key: string]: {
+        name: string;
+        key?: "x" | "y" | number;
+    };
+};
+type TouchMapping = {
+    [key: string]: {
+        name: string;
+        key?: "area" | number;
+    };
+};
+type MouseMapping = {
+    [key: string]: {
+        name: string;
+        key?: number | "WheelUp" | "WheelDown";
+    };
+};
+type Mapping = {
+    [key: string]: {
+        name: string;
+        key?: number;
+    };
+};
+type InputMapping = {
+    Gamepad: GamepadMapping;
+    Mouse: MouseMapping;
+    Keyboard: Mapping;
+    Touch: TouchMapping;
+};
+type InputMap = {
+    [mapName: string]: InputMapping;
+};
 export declare abstract class Input {
     private static _mouse;
     private static _keyboard;
     private static _touch;
+    private static _gamepads;
     static get mouse(): Mouse;
     static get keyboard(): Keyboard;
     static get touch(): TouchController;
+    static get gamepads(): GamepadController[];
+    static playerInputs: {
+        MouseAndKeyboard: number;
+        Gamepads: number[];
+    };
+    static actionMap: InputAction;
+    static inputMaps: InputMap;
+    static getDefaultActionMap(): InputAction;
+    static setActionMap(bindings: InputAction): void;
+    private static getGamepadKey;
+    private static copyGamepadConfig;
+    static renameAction(actionName: string, newName: string): void;
+    static bindAxes(actionName: string, bind: {
+        Gamepad?: GamepadAxes;
+        Keyboard?: KeyboardAxes;
+        Mouse?: MouseAxes;
+        Touch?: TouchAxes;
+    }, player?: number): void;
+    private static dedupeKeyboardInput;
+    private static dedupeGamepadInput;
+    private static dedupeTouchInput;
+    static bindButton(actionName: string, bind: {
+        Gamepad?: number;
+        Keyboard?: string;
+        Mouse?: number | "WheelUp" | "WheelDown";
+        Touch?: number | "Tap";
+    }, player?: number): void;
+    private static getMapping;
+    static getBindings(actionName: string): any;
+    static getAxes(name: string, player?: number): {
+        x: number;
+        y: number;
+    };
+    static getDown(name: string, player?: number): boolean;
+    static getUp(name: string, player?: number): boolean;
+    static getPressed(name: string, player?: number): number | true;
+    static getPlayerConfig(player?: number): {
+        gamepadIndex: number | undefined;
+        useMouseAndKeyboard: boolean;
+    };
+    private static getButtonConfig;
 }
+export {};
